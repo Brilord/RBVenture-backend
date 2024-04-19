@@ -1,0 +1,2 @@
+john,$2a$10$5Jei2MAw/nR73b3ywwPuVuUWNqP.6JMkxYdwMNX9nnT9O4VaROMiO,john@email.com
+brian,$2a$10$DPKZufg.AHfPcOz7mfhZEezvkHnDv7NP6HuPinL5AIoCuvmyOX/Ne,hello@gmail.com

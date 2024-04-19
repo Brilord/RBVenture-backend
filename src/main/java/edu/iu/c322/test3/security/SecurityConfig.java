@@ -28,11 +28,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
     private RSAKey rsaKey;
 
+    public SecurityConfig() { this.rsaKey = Jwks.generateRsa(); }
 
-    public SecurityConfig() {
-        this.rsaKey = Jwks.generateRsa();
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(Customizer.withDefaults())
+                .csrf(x -> x.disable())
+                .authorizeHttpRequests( auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/signup", "/signin").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .build();
+    }
+
+    @Bean
+    public JWKSource<SecurityContext> jwkSource() {
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
+    }
+
+    @Bean
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
+        return new NimbusJwtEncoder(jwks);
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder() throws JOSEException {
+        return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
     }
 
     @Bean
@@ -43,37 +73,5 @@ public class SecurityConfig {
         return new ProviderManager(authProvider);
     }
 
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors(Customizer.withDefaults())
-                .csrf(x -> x.disable())
-                .authorizeHttpRequests( auth -> auth
-                        .requestMatchers(
-                                HttpMethod.POST,"/register", "/signin").permitAll()
-                        .requestMatchers(
-                                HttpMethod.GET,"/").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-                .build();
-    }
-
-    @Bean
-    public JWKSource<SecurityContext> jwkSource() {
-        JWKSet jwkSet = new JWKSet(rsaKey);
-        return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
-    }
-    @Bean
-    JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
-        return new NimbusJwtEncoder(jwks);
-    }
-    @Bean
-    JwtDecoder jwtDecoder() throws JOSEException {
-        return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
-    }
 
 }

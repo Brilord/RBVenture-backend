@@ -1,7 +1,10 @@
 package edu.iu.c322.test3.repository;
 
+import edu.iu.c322.test3.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,15 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 
+// why is this component not repossitory?
+@Component
 public class CustomerRepository {
     private static final Logger LOG =
             LoggerFactory.getLogger(CustomerRepository.class);
-
-    private static final String DATABASE_NAME = "quizzes/customers.txt";
-    private static final String NEW_LINE = System.lineSeparator();
-
     public CustomerRepository() {
         File file = new File(DATABASE_NAME);
         file.getParentFile().mkdirs();
@@ -29,37 +31,48 @@ public class CustomerRepository {
         }
     }
 
-    @Override
-    public boolean save(Customer customer) throws IOException {
-        Customer x = findByUsername(customer.getUsername());
-        if(x == null) {
-            Path path = Paths.get(DATABASE_NAME);
-            String data = String.format("%1$s,%2$s,%3s",
-                    customer.getUsername().trim(),
-                    customer.getUsername().trim(),
-                    customer.getEmail.trim());
-            data += NEW_LINE;
-            Files.write(path,
-                    data.getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND);
-            return true;
+    private static final String NEW_LINE = System.lineSeparator();
+    private static final String DATABASE_NAME = "customers/customers.txt";
+    private static void appendToFile(Path path, String content)
+            throws IOException {
+        Files.write(path,
+                content.getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND);
+    }
+    public void save(Customer customer) throws Exception {
+        Customer c = findByUsername(customer.username());
+        if (c != null) {
+            throw new Exception("This username already exists. " +
+                    "Please choose another one.");
         }
-        return false;
+        Path path = Paths.get(DATABASE_NAME);
+        BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+        String passwordEncoded = bc.encode(customer.password());
+        String data = customer.username() + "," + passwordEncoded + "," + customer.email();
+        appendToFile(path, data + NEW_LINE);
     }
 
-    @Override
-    public Customer findByUsername(String username) throws IOException {
+
+    public List<Customer> findAll() throws IOException {
+        List<Customer> result = new ArrayList<>();
         Path path = Paths.get(DATABASE_NAME);
         List<String> data = Files.readAllLines(path);
         for (String line : data) {
             if(!line.trim().isEmpty()) {
-                String[] properties = line.split(",");
-                if(properties[0].trim().equalsIgnoreCase(username.trim())) {
-                    return new Customer(properties[0].trim()
-                            ,properties[1].trim()
-                            ,properties[2].trim());
-                }
+                String[] tokens = line.split(",");
+                Customer c = new Customer(tokens[0], tokens[1], tokens[2]);
+                result.add(c);
+            }
+        }
+        return result;
+    }
+
+    public Customer findByUsername(String username) throws IOException {
+        List<Customer> customers = findAll();
+        for(Customer customer : customers) {
+            if (customer.username().trim().equalsIgnoreCase(username.trim())) {
+                return customer;
             }
         }
         return null;
