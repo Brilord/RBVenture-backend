@@ -1,5 +1,6 @@
 package edu.iu.c322.test3.controllers;
 
+
 import edu.iu.c322.test3.model.Question;
 import edu.iu.c322.test3.repository.FileRepository;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/questions")
-public class QuestionController {
+@RequestMapping("/blogposts")
+public class BlogpostController {
 
     private FileRepository fileRepository;
 
-    public QuestionController(FileRepository fileRepository) {
+    public BlogpostController(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 

@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/quizzes")
-public class QuizController {
+@RequestMapping("/blog")
+public class BlogController {
 
     private final FileRepository fileRepository; // Assuming this is your data access abstraction
 
     // Constructor with dependency injection for the repository
-    public QuizController(FileRepository fileRepository) {
+    public BlogController(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
