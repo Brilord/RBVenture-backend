@@ -1,6 +1,6 @@
-package edu.iu.c322.test3.repository;
+package org.example.venture.repository;
 
-import edu.iu.c322.test3.model.Customer;
+import org.example.venture.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

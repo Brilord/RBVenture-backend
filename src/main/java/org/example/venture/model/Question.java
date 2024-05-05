@@ -1,4 +1,4 @@
-package edu.iu.c322.test3.model;
+package org.example.venture.model;
 
 import java.util.Arrays;
 

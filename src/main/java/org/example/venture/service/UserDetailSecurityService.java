@@ -1,7 +1,7 @@
-package edu.iu.c322.test3.service;
+package org.example.venture.service;
 
-import edu.iu.c322.test3.model.Customer;
-import edu.iu.c322.test3.repository.CustomerRepository;
+import org.example.venture.model.Customer;
+import org.example.venture.repository.CustomerRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

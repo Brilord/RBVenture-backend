@@ -1,7 +1,7 @@
-package edu.iu.c322.test3.service;
+package org.example.venture.service;
 
 
-import edu.iu.c322.test3.model.Customer;
+import org.example.venture.model.Customer;
 
 import java.io.IOException;
 

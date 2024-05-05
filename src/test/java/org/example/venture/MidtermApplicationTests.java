@@ -1,4 +1,4 @@
-package edu.iu.c322.test3;
+package org.example.venture;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

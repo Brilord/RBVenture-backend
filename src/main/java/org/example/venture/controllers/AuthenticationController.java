@@ -1,9 +1,8 @@
-package edu.iu.c322.test3.controllers;
+package org.example.venture.controllers;
 
-import edu.iu.c322.test3.model.Customer;
-import edu.iu.c322.test3.repository.CustomerRepository;
-import edu.iu.c322.test3.service.IAuthenticationService;
-import edu.iu.c322.test3.service.TokenService;
+import org.example.venture.model.Customer;
+import org.example.venture.repository.CustomerRepository;
+import org.example.venture.service.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

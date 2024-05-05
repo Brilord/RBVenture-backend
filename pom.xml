@@ -8,8 +8,8 @@
 		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>edu.iu.c322</groupId>
-	<artifactId>test3</artifactId>
+	<groupId>org.example.venture</groupId>
+	<artifactId>venture</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>test3</name>
 	<description>Test 3</description>

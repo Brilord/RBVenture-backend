@@ -1,4 +1,4 @@
-package edu.iu.c322.test3;
+package org.example.venture;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

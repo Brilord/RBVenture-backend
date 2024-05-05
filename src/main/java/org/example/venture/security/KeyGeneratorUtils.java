@@ -1,4 +1,4 @@
-package edu.iu.c322.test3.security;
+package org.example.venture.security;
 
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
-package edu.iu.c322.test3.repository;
+package org.example.venture.repository;
 
 ;
-import edu.iu.c322.test3.model.Question;
-import edu.iu.c322.test3.model.Quiz;
+import org.example.venture.model.Question;
+import org.example.venture.model.Quiz;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
