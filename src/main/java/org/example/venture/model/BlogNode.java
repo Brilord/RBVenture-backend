@@ -2,9 +2,9 @@ package org.example.venture.model;
 
 import java.util.Arrays;
 
-public class Question {
+public class BlogNode {
 
-    public Question(Integer id, String description, String answer, String[] choices) {
+    public BlogNode(Integer id, String description, String answer, String[] choices) {
         this.id = id;
         this.description = description;
         this.answer = answer;
@@ -26,10 +26,10 @@ public class Question {
         return line;
     }
 
-    public static Question fromLine(String line) {
+    public static BlogNode fromLine(String line) {
       String[] tokens = line.split(",");
       String[] choiceTokens = Arrays.copyOfRange(tokens, 3, tokens.length);
-      Question q = new Question(Integer.parseInt(tokens[0]),
+      BlogNode q = new BlogNode(Integer.parseInt(tokens[0]),
               tokens[1].trim(),
               tokens[2].trim(),
               choiceTokens);

@@ -1,6 +1,6 @@
 package org.example.venture.controllers;
 
-import org.example.venture.model.Quiz;
+import org.example.venture.model.Blog;
 import org.example.venture.repository.FileRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/quizzes")
+@RequestMapping("/blog")
 public class BlogController {
 
     private final FileRepository fileRepository; // Assuming this is your data access abstraction
@@ -21,61 +21,51 @@ public class BlogController {
         this.fileRepository = fileRepository;
     }
 
-
     @PostMapping
-    public int addQuiz(@RequestBody Quiz quiz) {
+    public int addBlog(@RequestBody Blog blog) {
         try {
-            return fileRepository.addQuiz(quiz);
+            return fileRepository.addBlog(blog);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @GetMapping
-    public List<Quiz> findAllQuizzes(Quiz quiz) {
+    public List<Blog> findAllBlogs() {
         try {
-            return fileRepository.getAllQuizzes();
+            return fileRepository.getAllBlogs();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    //    @GetMapping("/{id}")
-//    public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
-//        // Assuming you have a method to find a quiz by ID
-//        Optional<Quiz> quiz = fileRepository.getQuiz(id);
-//        if (quiz.isPresent()) {
-//            return new ResponseEntity<>(quiz.get(), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
     @GetMapping("/{id}")
-    public Quiz getQuizById(@PathVariable int id) {
+    public Blog getBlogById(@PathVariable int id) {
         try {
-            return fileRepository.getQuiz(id);
+            return fileRepository.getBlog(id);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @PutMapping("/{id}")
-    public ResponseEntity<Quiz> updateQuiz(@PathVariable int id, @RequestBody Quiz updatedQuiz) {
+    public ResponseEntity<Blog> updateBlog(@PathVariable int id, @RequestBody Blog updatedBlog) {
         try {
-            Quiz existingQuiz = fileRepository.getQuiz(id);
-            if (existingQuiz == null) { return ResponseEntity.notFound().build();}
-            if (updatedQuiz.getTitle() != null) {existingQuiz.setTitle(updatedQuiz.getTitle());}
-            if (updatedQuiz.getQuestionIds() != null) {
-                existingQuiz.setQuestionIds(updatedQuiz.getQuestionIds());}
+            Blog existingBlog = fileRepository.getBlog(id);
+            if (existingBlog == null) {
+                return ResponseEntity.notFound().build();
+            }
+            if (updatedBlog.getTitle() != null) {
+                existingBlog.setTitle(updatedBlog.getTitle());
+            }
+            if (updatedBlog.getQuestionIds() != null) {
+                existingBlog.setQuestionIds(updatedBlog.getQuestionIds());
+            }
 
-
-            fileRepository.updateQuiz(existingQuiz);
-            return ResponseEntity.ok(existingQuiz);
+            fileRepository.updateBlog(existingBlog);
+            return ResponseEntity.ok(existingBlog);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }

@@ -1,11 +1,8 @@
 package org.example.venture.security;
 
 import org.springframework.stereotype.Component;
-
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-
-
 public class KeyGeneratorUtils {
     private KeyGeneratorUtils() {}
 

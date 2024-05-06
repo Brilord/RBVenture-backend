@@ -1,8 +1,8 @@
 package org.example.venture.repository;
 
-;
-import org.example.venture.model.Question;
-import org.example.venture.model.Quiz;
+
+import org.example.venture.model.BlogNode;
+import org.example.venture.model.Blog;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,11 +19,11 @@ import java.util.Optional;
 
 @Component
 public class FileRepository {
-    private String IMAGES_FOLDER_PATH = "quizzes/questions/images";
+    private String IMAGES_FOLDER_PATH = "blog/blognode/images";
     private static final String NEW_LINE = System.lineSeparator();
-    private static final String QUESTION_DATABASE_NAME = "quizzes/questions.txt";
-    private static final String QUIZ_DATABASE_NAME = "quizzes/quizzes.txt";
-    private static final String QUIZ_FOLDER_PATH = "quizzes/quiz";
+    private static final String QUESTION_DATABASE_NAME = "blog/blognode.txt";
+    private static final String QUIZ_DATABASE_NAME = "blog/blognode.txt";
+    private static final String QUIZ_FOLDER_PATH = "blog/blognode";
 
     public FileRepository() {
         File imagesDirectory = new File(IMAGES_FOLDER_PATH);
@@ -40,11 +40,11 @@ public class FileRepository {
                 StandardOpenOption.APPEND);
     }
 
-    public int add(Question question) throws IOException {
+    public int add(BlogNode question) throws IOException {
         Path path = Paths.get(QUESTION_DATABASE_NAME);
-        List<Question> questions = findAllQuestions();
+        List<BlogNode> questions = findAllQuestions();
         int id = 0;
-        for(Question q : questions) {
+        for(BlogNode q : questions) {
             if(q.getId() > id) {
                 id = q.getId();
             }
@@ -58,21 +58,18 @@ public class FileRepository {
 
 
 
-    public int addQuiz(Quiz quiz) throws IOException {
-        List<Quiz> quizzes = getAllQuizzes();
+    public int addBlog(Blog quiz) throws IOException {
+        List<Blog> quizzes = getAllQuizzes();
         int id = 0;
-        for(Quiz q : quizzes) {
+        for(Blog q : quizzes) {
             if(q.getId() > id) {
                 id = q.getId();
             }
         }
         id++;
 
-        // get all the questions
-        // then select the ids for the questions using List qustionid
-        // add the quiz to the database.
         quiz.setId(id);
-        // Now, we need to add the quiz to the database file
+
         Path path = Paths.get(QUIZ_DATABASE_NAME);
         String data = quiz.toLine(id);
         System.out.println(data);
@@ -83,14 +80,14 @@ public class FileRepository {
 
 
 
-    public List<Question> findAllQuestions() throws IOException {
-        List<Question> result = new ArrayList<>();
+    public List<BlogNode> findAllQuestions() throws IOException {
+        List<BlogNode> result = new ArrayList<>();
         Path path = Paths.get(QUESTION_DATABASE_NAME);
         if (Files.exists(path)) {
             List<String> data = Files.readAllLines(path);
             for (String line : data) {
                 if(line.trim().length() != 0) {
-                    Question q = Question.fromLine(line);
+                    BlogNode q = BlogNode.fromLine(line);
                     result.add(q); //
                 }
             }
@@ -98,18 +95,18 @@ public class FileRepository {
         return result;
     }
 
-    public List<Quiz> getAllQuizzes() throws IOException{
+    public List<Blog> getAllQuizzes() throws IOException{
         // get all the quizzes from the database
 
-        List<Quiz> quizzes = new ArrayList<>();
+        List<Blog> quizzes = new ArrayList<>();
         Path path = Paths.get(QUIZ_DATABASE_NAME);
         if (Files.exists(path)) {
             List<String> data = Files.readAllLines(path);
             for (String line : data) {
                 if (line.trim().length() != 0) {
-                    Quiz q = Quiz.fromLine(line);
+                    Blog q = Blog.fromLine(line);
                     // Fetch questions associated with this quiz
-                    List<Question> questions = find(q.getQuestionIds());
+                    List<BlogNode> questions = find(q.getQuestionIds());
                     q.setQuestions(questions);
                     quizzes.add(q);
                 }
@@ -119,10 +116,10 @@ public class FileRepository {
 
     }
 
-    public List<Question> find(String answer) throws IOException {
-        List<Question> animals = findAllQuestions();
-        List<Question> result = new ArrayList<>();
-        for (Question question : animals) {
+    public List<BlogNode> find(String answer) throws IOException {
+        List<BlogNode> animals = findAllQuestions();
+        List<BlogNode> result = new ArrayList<>();
+        for (BlogNode question : animals) {
             if (answer != null && !question.getAnswer().trim().equalsIgnoreCase(answer.trim())) {
                 continue;
             }
@@ -131,31 +128,28 @@ public class FileRepository {
         return result;
     }
 
-    public List<Question> find(List<Integer> ids) throws IOException {
-        List<Question> questions = findAllQuestions();
-        List<Question> result = new ArrayList<>();
+    public List<BlogNode> find(List<Integer> ids) throws IOException {
+        List<BlogNode> questions = findAllQuestions();
+        List<BlogNode> result = new ArrayList<>();
         for (int id : ids) {
-            Optional<Question> optionalQuestion = questions.stream().filter(x -> x.getId() == id).findFirst();
+            Optional<BlogNode> optionalQuestion = questions.stream().filter(x -> x.getId() == id).findFirst();
             optionalQuestion.ifPresent(result::add);
         }
         return result;
     }
 
-
-
-
-    public Question get(Integer id) throws IOException {
-        List<Question> questions = findAllQuestions();
-        for (Question question : questions) {
+    public BlogNode get(Integer id) throws IOException {
+        List<BlogNode> questions = findAllQuestions();
+        for (BlogNode question : questions) {
             if (question.getId() == id) {
                 return question;
             }
         }
         return null;
     }
-    public Quiz getQuiz(Integer id) throws IOException {
-        List<Quiz> quizzes = getAllQuizzes();
-        for (Quiz quiz : quizzes) {
+    public Blog getQuiz(Integer id) throws IOException {
+        List<Blog> quizzes = getAllQuizzes();
+        for (Blog quiz : quizzes) {
             if (quiz.getId() == id) {
                 return quiz;
             }
@@ -186,10 +180,10 @@ public class FileRepository {
 //        return false; // Quiz with the given ID not found
 //    }
 
-    private void writeQuizzesToFile(List<Quiz> quizzes) throws IOException {
+    private void writeQuizzesToFile(List<Blog> quizzes) throws IOException {
         Path path = Paths.get(QUIZ_DATABASE_NAME);
         Files.write(path, "".getBytes()); // Clear the file
-        for (Quiz quiz : quizzes) {
+        for (Blog quiz : quizzes) {
             String data = quiz.toLine(quiz.getId());
             appendToFile(path, data + NEW_LINE); // Append each quiz to the file
         }
@@ -223,11 +217,11 @@ public class FileRepository {
 //            appendToFile(path, quiz.toLine(quiz.getId()));
 //        }
 //    }
-    public void updateQuiz(Quiz updatedQuiz) throws IOException {
-        List<Quiz> quizzes = getAllQuizzes();
+    public void updateQuiz(Blog updatedQuiz) throws IOException {
+        List<Blog> quizzes = getAllQuizzes();
         boolean found = false;
         for (int i = 0; i < quizzes.size(); i++) {
-            Quiz quiz = quizzes.get(i);
+            Blog quiz = quizzes.get(i);
             if (quiz.getId() == updatedQuiz.getId()) {
                 quizzes.set(i, updatedQuiz);
                 found = true;
@@ -241,7 +235,7 @@ public class FileRepository {
         // Rewrite the entire database file with updated quiz information
         Path path = Paths.get(QUIZ_DATABASE_NAME);
         List<String> lines = new ArrayList<>();
-        for (Quiz quiz : quizzes) {
+        for (Blog quiz : quizzes) {
             lines.add(quiz.toLine(quiz.getId()));
         }
         Files.write(path, lines, StandardCharsets.UTF_8);

@@ -1,7 +1,7 @@
 package org.example.venture.controllers;
 
 
-import org.example.venture.model.Question;
+import org.example.venture.model.BlogNode;
 import org.example.venture.repository.FileRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/questions")
+@RequestMapping("/blognode")
 public class BlogNodeController {
 
     private FileRepository fileRepository;
@@ -24,7 +24,7 @@ public class BlogNodeController {
     }
 
     @PostMapping
-    public int add(@RequestBody Question question) {
+    public int add(@RequestBody BlogNode question) {
         try {
             return fileRepository.add(question);
         } catch (IOException e) {
@@ -33,7 +33,7 @@ public class BlogNodeController {
     }
 
     @GetMapping
-    public List<Question> findAll() {
+    public List<BlogNode> findAll() {
         try {
             return fileRepository.findAllQuestions();
         } catch (IOException e) {
@@ -42,7 +42,7 @@ public class BlogNodeController {
     }
 
     @GetMapping("/search")
-    public List<Question> find(@RequestParam String answer) {
+    public List<BlogNode> find(@RequestParam String answer) {
         try {
             return fileRepository.find(answer);
         } catch (IOException e) {
@@ -51,7 +51,7 @@ public class BlogNodeController {
     }
 
     @GetMapping("/{id}")
-    public Question get(@PathVariable int id) {
+    public BlogNode get(@PathVariable int id) {
         try {
             return fileRepository.get(id);
         } catch (IOException e) {

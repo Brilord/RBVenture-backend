@@ -44,7 +44,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public String login(@RequestBody Customer customer) {
             Authentication authentication = authenticationManager
                     .authenticate(

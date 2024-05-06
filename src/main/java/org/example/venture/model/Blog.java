@@ -3,15 +3,15 @@ package org.example.venture.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Quiz {
+public class Blog {
 
     private Integer id;
     private String title;
     private List<Integer> questionIds;
 
-    private List<Question> questions;
+    private List<BlogNode> questions;
 
-    public Quiz(Integer id, String quizTitle, List<Integer> questionIds) {
+    public Blog(Integer id, String quizTitle, List<Integer> questionIds) {
         this.id = id;
         this.title = quizTitle;
         this.questionIds = questionIds;
@@ -26,11 +26,11 @@ public class Quiz {
         return line;
     }
 
-    public static Quiz fromLine(String line) {
+    public static Blog fromLine(String line) {
         String[] tokens = line.split(",");
         List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 2, tokens.length))
                 .map(x -> Integer.valueOf(x.trim())).toList();
-        Quiz q = new Quiz(Integer.valueOf(tokens[0]),
+        Blog q = new Blog(Integer.valueOf(tokens[0]),
                 tokens[1],
                 ids);
         return q;
@@ -60,11 +60,11 @@ public class Quiz {
         this.questionIds = questionIds;
     }
 
-    public List<Question> getQuestions() {
+    public List<BlogNode> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<BlogNode> questions) {
         this.questions = questions;
     }
 }

@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String greetings() {
-        return "Welcome to the image quiz service!";
+        return "Welcome to the backend of our hosting service!!";
     }
 }
