@@ -1,7 +1,7 @@
-package edu.iu.c322.test3.controllers;
+package org.example.venture.controllers;
 
-import edu.iu.c322.test3.model.Quiz;
-import edu.iu.c322.test3.repository.FileRepository;
+import org.example.venture.model.Quiz;
+import org.example.venture.repository.FileRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/blog")
+@RequestMapping("/quizzes")
 public class BlogController {
 
     private final FileRepository fileRepository; // Assuming this is your data access abstraction

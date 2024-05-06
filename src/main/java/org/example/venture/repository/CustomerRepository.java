@@ -41,15 +41,15 @@ public class CustomerRepository {
                 StandardOpenOption.APPEND);
     }
     public void save(Customer customer) throws Exception {
-        Customer c = findByUsername(customer.username());
+        Customer c = findByUsername(customer.getUsername());
         if (c != null) {
             throw new Exception("This username already exists. " +
                     "Please choose another one.");
         }
         Path path = Paths.get(DATABASE_NAME);
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-        String passwordEncoded = bc.encode(customer.password());
-        String data = customer.username() + "," + passwordEncoded + "," + customer.email();
+        String passwordEncoded = bc.encode(customer.getPassword());
+        String data = customer.getUsername() + "," + passwordEncoded + "," + customer.getEmail();
         appendToFile(path, data + NEW_LINE);
     }
 
@@ -71,7 +71,7 @@ public class CustomerRepository {
     public Customer findByUsername(String username) throws IOException {
         List<Customer> customers = findAll();
         for(Customer customer : customers) {
-            if (customer.username().trim().equalsIgnoreCase(username.trim())) {
+            if (customer.getUsername().trim().equalsIgnoreCase(username.trim())) {
                 return customer;
             }
         }

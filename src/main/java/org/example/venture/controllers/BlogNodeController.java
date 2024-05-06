@@ -15,11 +15,11 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/questions")
-public class QuestionController {
+public class BlogNodeController {
 
     private FileRepository fileRepository;
 
-    public QuestionController(FileRepository fileRepository) {
+    public BlogNodeController(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
