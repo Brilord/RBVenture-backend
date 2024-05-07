@@ -34,5 +34,5 @@ jobs:
       - name: Build and push the image
         run: |
           docker login --username hellobrian1 --password ${{secrets.ACCESS_TOKEN}} ghcr.io
-          docker build -t ghcr.io/hellobrian1/test3:latest --file Dockerfile .  
-          docker push ghcr.io/hellobrian1/test3:latest 
+          docker build -t ghcr.io/hellobrian1/rbventure:latest --file Dockerfile .  
+          docker push ghcr.io/hellobrian1/rbventure:latest 

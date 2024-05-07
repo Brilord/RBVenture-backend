@@ -35,7 +35,7 @@ public class BlogNodeController {
     @GetMapping
     public List<BlogNode> findAll() {
         try {
-            return fileRepository.findAllQuestions();
+            return fileRepository.findAllBlogNodes();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

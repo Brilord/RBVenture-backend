@@ -7,22 +7,22 @@ public class Blog {
 
     private Integer id;
     private String title;
-    private List<Integer> questionIds;
+    private List<Integer> blogNodeIds;
 
-    private List<BlogNode> questions;
+    private List<BlogNode> blogNodes;
 
-    public Blog(Integer id, String quizTitle, List<Integer> questionIds) {
+    public Blog(Integer id, String blogTitle, List<Integer> blogNodeIds) {
         this.id = id;
-        this.title = quizTitle;
-        this.questionIds = questionIds;
+        this.title = blogTitle;
+        this.blogNodeIds = blogNodeIds;
     }
 
-    public String toLine(int quizId) {
-        String questionIds = String.join(",", getQuestionIds().stream().map(String::valueOf).toList());
+    public String toLine(int blogId) {
+        String blogNodeIds = String.join(",", getBlogNodeIds().stream().map(String::valueOf).toList());
         String line = String.format("%1s,%2s, %3s",
-                quizId,
+                blogId,
                 getTitle(),
-                              questionIds);
+                blogNodeIds);
         return line;
     }
 
@@ -30,10 +30,10 @@ public class Blog {
         String[] tokens = line.split(",");
         List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 2, tokens.length))
                 .map(x -> Integer.valueOf(x.trim())).toList();
-        Blog q = new Blog(Integer.valueOf(tokens[0]),
+        Blog blog = new Blog(Integer.valueOf(tokens[0]),
                 tokens[1],
                 ids);
-        return q;
+        return blog;
     }
 
     public Integer getId() {
@@ -52,19 +52,19 @@ public class Blog {
         this.title = title;
     }
 
-    public List<Integer> getQuestionIds() {
-        return questionIds;
+    public List<Integer> getBlogNodeIds() {
+        return blogNodeIds;
     }
 
-    public void setQuestionIds(List<Integer> questionIds) {
-        this.questionIds = questionIds;
+    public void setBlogNodeIds(List<Integer> blogNodeIds) {
+        this.blogNodeIds = blogNodeIds;
     }
 
-    public List<BlogNode> getQuestions() {
-        return questions;
+    public List<BlogNode> getBlogNodes() {
+        return blogNodes;
     }
 
-    public void setQuestions(List<BlogNode> questions) {
-        this.questions = questions;
+    public void setBlogNodes(List<BlogNode> blogNodes) {
+        this.blogNodes = blogNodes;
     }
 }

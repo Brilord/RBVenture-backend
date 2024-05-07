@@ -1,8 +1,0 @@
-1,Which word matches the image?,elephant,bear,lion,elephant
-2,Which word matches the image?,leopard,bear,tiger,leopard
-3,Which word matches the image?,lion,tiger,lion,leopard
-
-4,Which word matches the image?,eagle,eagle,hawk,kite
-5,Which word matches the image?,elk,elk,deer,moose
-6,Which word matches the image?,ladybird,ladybird,Lymexyloidea,Endomychidae
-7,Which word matches the image?,nightingale,robin,nightingale,silverbird

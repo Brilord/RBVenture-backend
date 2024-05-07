@@ -58,8 +58,8 @@ public class BlogController {
             if (updatedBlog.getTitle() != null) {
                 existingBlog.setTitle(updatedBlog.getTitle());
             }
-            if (updatedBlog.getQuestionIds() != null) {
-                existingBlog.setQuestionIds(updatedBlog.getQuestionIds());
+            if (updatedBlog.getBlogNodeIds() != null) {
+                existingBlog.setBlogNodeIds(updatedBlog.getBlogNodeIds());
             }
 
             fileRepository.updateBlog(existingBlog);
