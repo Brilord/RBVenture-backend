@@ -33,14 +33,15 @@ public class SecurityConfig {
 
     public SecurityConfig() { this.rsaKey = Jwks.generateRsa(); }
 
+    // remove the /blog /blognode, /blog /blogpost when finished
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(x -> x.disable())
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/signup", "/signin").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/", "/blog", "/blogpost").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/signup", "/signin", "/blog", "/blognode", "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/blog", "/blognode").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->

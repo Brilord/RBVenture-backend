@@ -21,7 +21,7 @@ public class FileRepository {
     private String IMAGES_FOLDER_PATH = "blog/blognode/images";
     private static final String NEW_LINE = System.lineSeparator();
     private static final String BLOGNODE_DATABASE_NAME = "blog/blognode.txt";
-    private static final String BLOG_DATABASE_NAME = "blog/blognode.txt";
+    private static final String BLOG_DATABASE_NAME = "blog/blog.txt";
     private static final String BLOG_FOLDER_PATH = "blog/blognode";
 
     public FileRepository() {

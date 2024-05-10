@@ -34,7 +34,7 @@ public class Blog {
 
     public static Blog fromLine(String line) {
         String[] tokens = line.split(",");
-        List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 2, tokens.length))
+        List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 4, tokens.length))
                 .map(x -> Integer.valueOf(x.trim())).toList();
         Blog blog = new Blog(Integer.valueOf(tokens[0]),
                 tokens[1], tokens[2], tokens[3],
