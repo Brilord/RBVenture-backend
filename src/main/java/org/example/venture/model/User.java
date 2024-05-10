@@ -1,17 +1,17 @@
 package org.example.venture.model;
 
-public class Customer {
+public class User {
 
     private String username;
     private String password;
 
     private String email;
 
-    public Customer() {
+    public User() {
 
     }
 
-    public Customer(String username, String password, String email) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;

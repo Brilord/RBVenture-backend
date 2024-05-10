@@ -1,6 +1,6 @@
 package org.example.venture.controllers;
 
-import org.example.venture.model.Customer;
+import org.example.venture.model.User;
 import org.example.venture.repository.CustomerRepository;
 import org.example.venture.service.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +32,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/signup")
-    public boolean register(@RequestBody Customer customer) {
+    public boolean register(@RequestBody User customer) {
         try {
             System.out.println("hello there");
             customerRepository.save(customer);
@@ -44,8 +44,8 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody Customer customer) {
+    @PostMapping("/signin")
+    public String login(@RequestBody User customer) {
             Authentication authentication = authenticationManager
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(

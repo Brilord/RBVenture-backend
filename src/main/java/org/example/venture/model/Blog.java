@@ -7,21 +7,27 @@ public class Blog {
 
     private Integer id;
     private String title;
+    private String description;
+    private String dateAndTime;
     private List<Integer> blogNodeIds;
 
     private List<BlogNode> blogNodes;
 
-    public Blog(Integer id, String blogTitle, List<Integer> blogNodeIds) {
+    public Blog(Integer id, String blogTitle, String description, String dateAndTime, List<Integer> blogNodeIds) {
         this.id = id;
         this.title = blogTitle;
+        this.description = description;
+        this.dateAndTime = dateAndTime;
         this.blogNodeIds = blogNodeIds;
     }
 
     public String toLine(int blogId) {
         String blogNodeIds = String.join(",", getBlogNodeIds().stream().map(String::valueOf).toList());
-        String line = String.format("%1s,%2s, %3s",
+        String line = String.format("%1s,%2s, %3s, %4s, %5s",
                 blogId,
                 getTitle(),
+                getDescription(),
+                getDateAndTime(),
                 blogNodeIds);
         return line;
     }
@@ -31,7 +37,7 @@ public class Blog {
         List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 2, tokens.length))
                 .map(x -> Integer.valueOf(x.trim())).toList();
         Blog blog = new Blog(Integer.valueOf(tokens[0]),
-                tokens[1],
+                tokens[1], tokens[2], tokens[3],
                 ids);
         return blog;
     }
@@ -67,4 +73,21 @@ public class Blog {
     public void setBlogNodes(List<BlogNode> blogNodes) {
         this.blogNodes = blogNodes;
     }
+
+    public String getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

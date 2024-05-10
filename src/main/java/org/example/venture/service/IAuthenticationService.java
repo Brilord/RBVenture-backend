@@ -1,11 +1,11 @@
 package org.example.venture.service;
 
 
-import org.example.venture.model.Customer;
+import org.example.venture.model.User;
 
 import java.io.IOException;
 
 public interface IAuthenticationService {
-    Customer register(Customer customer) throws Exception;
+    User register(User customer) throws Exception;
     boolean login(String username, String password) throws IOException;
 }

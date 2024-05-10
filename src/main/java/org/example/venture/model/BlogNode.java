@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class BlogNode {
 
-    public BlogNode(Integer id, String description, String answer, String[] choices) {
+    public BlogNode(Integer id, String description, String date, String[] choices) {
         this.id = id;
         this.description = description;
-        this.answer = answer;
+        this.answer = date;
         this.choices = choices;
     }
 

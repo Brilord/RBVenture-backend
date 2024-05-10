@@ -1,2 +1,3 @@
 john,$2a$10$5Jei2MAw/nR73b3ywwPuVuUWNqP.6JMkxYdwMNX9nnT9O4VaROMiO,john@email.com
 brian,$2a$10$hVIeD8kBOe9ZXWwV/1v2I.Mr7W9wbyMac64FCp1pUhEHhHW1W7kL2,hello@gmail.com
+brilord,$2a$10$ZFiXOcG1IzrWNsovEc72BOJNZ74EqMbNRREbNbKFcAvkNkNsVKB1.,brilord1000@gmail.com

@@ -1,8 +1,7 @@
 package org.example.venture.service;
 
-import org.example.venture.model.Customer;
+import org.example.venture.model.User;
 import org.example.venture.repository.CustomerRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,12 +19,12 @@ public class UserDetailSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         try {
-            Customer customer =
+            User customer =
                     customerRepository.findByUsername(username);
             if (customer == null) {
                 throw new UsernameNotFoundException("");
             }
-            return User
+            return org.springframework.security.core.userdetails.User
                     .withUsername(username)
                     .password(customer.getPassword())
                     .build();

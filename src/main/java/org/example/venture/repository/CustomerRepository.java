@@ -1,6 +1,6 @@
 package org.example.venture.repository;
 
-import org.example.venture.model.Customer;
+import org.example.venture.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,8 +40,8 @@ public class CustomerRepository {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND);
     }
-    public void save(Customer customer) throws Exception {
-        Customer c = findByUsername(customer.getUsername());
+    public void save(User customer) throws Exception {
+        User c = findByUsername(customer.getUsername());
         if (c != null) {
             throw new Exception("This username already exists. " +
                     "Please choose another one.");
@@ -54,23 +54,23 @@ public class CustomerRepository {
     }
 
 
-    public List<Customer> findAll() throws IOException {
-        List<Customer> result = new ArrayList<>();
+    public List<User> findAll() throws IOException {
+        List<User> result = new ArrayList<>();
         Path path = Paths.get(DATABASE_NAME);
         List<String> data = Files.readAllLines(path);
         for (String line : data) {
             if(!line.trim().isEmpty()) {
                 String[] tokens = line.split(",");
-                Customer c = new Customer(tokens[0], tokens[1], tokens[2]);
+                User c = new User(tokens[0], tokens[1], tokens[2]);
                 result.add(c);
             }
         }
         return result;
     }
 
-    public Customer findByUsername(String username) throws IOException {
-        List<Customer> customers = findAll();
-        for(Customer customer : customers) {
+    public User findByUsername(String username) throws IOException {
+        List<User> customers = findAll();
+        for(User customer : customers) {
             if (customer.getUsername().trim().equalsIgnoreCase(username.trim())) {
                 return customer;
             }

@@ -24,6 +24,7 @@ public class BlogController {
     @PostMapping
     public int addBlog(@RequestBody Blog blog) {
         try {
+            System.out.println("hello there");
             return fileRepository.addBlog(blog);
         } catch (IOException e) {
             throw new RuntimeException(e);
