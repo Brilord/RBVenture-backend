@@ -64,9 +64,7 @@ public class FileRepository {
             }
         }
         id++;
-
         blog.setId(id);
-
         Path path = Paths.get(BLOG_DATABASE_NAME);
         String data = blog.toLine(id);
         appendToFile(path, data + NEW_LINE);
@@ -186,5 +184,48 @@ public class FileRepository {
 
         // Rewrite the entire database file with updated blog information
         writeBlogsToFile(blogs);
+    }
+
+    public void deleteBlog(int id) {
+        try {
+            List<Blog> blogs = getAllBlogs();
+            boolean found = false;
+            for (int i = 0; i < blogs.size(); i++) {
+                Blog blog = blogs.get(i);
+                if (blog.getId() == id) {
+                    blogs.remove(i);
+                    found = true;
+                    // After removing the blog, reassign IDs to ensure sequential numbering
+                    reassignIds(blogs);
+                    break;
+                }
+            }
+            if (!found) {
+                throw new IllegalArgumentException("Blog with id " + id + " not found");
+            }
+
+            writeBlogsToFile(blogs);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    // After removing a blog, reassign IDs sequentially
+
+    private void reassignIds(List<Blog> blogs) {
+        for (int i = 0; i < blogs.size(); i++) {
+            blogs.get(i).setId(i + 1);
+        }
+    }
+
+    public void deleteAllBlogs() {
+        try {
+            List<Blog> blogs = getAllBlogs();
+            blogs.clear();
+            writeBlogsToFile(blogs);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

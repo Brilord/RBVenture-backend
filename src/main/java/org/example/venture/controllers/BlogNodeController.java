@@ -80,4 +80,5 @@ public class BlogNodeController {
             throw new RuntimeException(e);
         }
     }
+
 }
