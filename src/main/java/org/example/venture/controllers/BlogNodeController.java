@@ -60,10 +60,10 @@ public class BlogNodeController {
     }
 
     @PostMapping("/{id}/image")
-    public boolean updateImage(@PathVariable int id,
+    public boolean addImage(@PathVariable int id,
                                @RequestParam MultipartFile file) {
         try {
-            return fileRepository.updateImage(id, file);
+            return fileRepository.addImagePng(id, file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

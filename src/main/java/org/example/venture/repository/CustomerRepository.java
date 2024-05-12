@@ -53,6 +53,18 @@ public class CustomerRepository {
         appendToFile(path, data + NEW_LINE);
     }
 
+    public void updatePassword(User customer) throws Exception {
+        User c = findByEmail(customer.getEmail());
+        if (c == null) {
+            throw new Exception("This username does not exist.");
+        }
+        Path path = Paths.get(DATABASE_NAME);
+        BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+        String passwordEncoded = bc.encode(customer.getPassword());
+        String data = customer.getUsername() + "," + passwordEncoded + "," + customer.getEmail();
+        appendToFile(path, data + NEW_LINE);
+    }
+
 
     public List<User> findAll() throws IOException {
         List<User> result = new ArrayList<>();
@@ -76,5 +88,35 @@ public class CustomerRepository {
             }
         }
         return null;
+    }
+    public User findByEmail(String email) throws IOException {
+        List<User> customers = findAll();
+        for(User customer : customers) {
+            if (customer.getEmail().trim().equalsIgnoreCase(email.trim())) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public void deleteAccount(User customer) {
+        try {
+            User c = findByEmail(customer.getEmail());
+            if (c == null) {
+                throw new Exception("This username does not exist.");
+            }
+            List<User> customers = findAll();
+            Path path = Paths.get(DATABASE_NAME);
+            Files.delete(path);
+            for (User cust : customers) {
+                if (!cust.getEmail().trim().equalsIgnoreCase(customer.getEmail().trim())) {
+                    save(cust);
+                }
+            }
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
     }
 }

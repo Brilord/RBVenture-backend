@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -145,12 +146,30 @@ public class FileRepository {
         return null;
     }
 
-    public boolean updateImage(int id, MultipartFile file) throws IOException {
+    public boolean addImagePng(int id, MultipartFile file) throws IOException {
         String fileExtension = ".png";
         Path path = Paths.get(IMAGES_FOLDER_PATH + "/" + id + fileExtension);
         file.transferTo(path);
         return true;
     }
+    public boolean updateImagePng(int id, MultipartFile file) throws IOException {
+        String fileExtension = ".png";
+        Path imagePath = Paths.get(IMAGES_FOLDER_PATH + "/" + id + fileExtension);
+
+        // Check if the image file exists
+        if (!Files.exists(imagePath)) {
+            throw new FileNotFoundException("Image with id " + id + " not found");
+        }
+
+        // Delete the existing image
+        Files.delete(imagePath);
+
+        // Save the new image with the same id
+        file.transferTo(imagePath);
+
+        return true;
+    }
+
 
     private void writeBlogsToFile(List<Blog> blogs) throws IOException {
         Path path = Paths.get(BLOG_DATABASE_NAME);

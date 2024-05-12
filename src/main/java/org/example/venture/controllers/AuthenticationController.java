@@ -6,10 +6,7 @@ import org.example.venture.service.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -55,5 +52,27 @@ public class AuthenticationController {
                 return tokenService.generateToken(authentication);
     }
 
+    @PostMapping("{id}")
+    public String changePassword(@RequestBody User customer) {
+        try {
+            System.out.println("hello there");
+            customerRepository.updatePassword(customer);
+            return "Password changed successfully";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @DeleteMapping()
+    public String deleteAccount(@RequestBody User customer) {
+        try {
+            System.out.println("hello there");
+            customerRepository.deleteAccount(customer);
+            return "Account deleted successfully";
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
