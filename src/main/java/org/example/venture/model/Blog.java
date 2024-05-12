@@ -22,8 +22,12 @@ public class Blog {
     }
 
     public String toLine(int blogId) {
-        String blogNodeIds = String.join(",", getBlogNodeIds().stream().map(String::valueOf).toList());
-        String line = String.format("%1s,%2s, %3s, %4s, %5s",
+        String blogNodeIds = "";
+        if (getBlogNodeIds() != null && !getBlogNodeIds().isEmpty()) {
+            blogNodeIds = String.join(",", getBlogNodeIds().stream().map(String::valueOf).toList());
+            blogNodeIds = "," + blogNodeIds; // Add comma if there are blogNodeIds
+        }
+        String line = String.format("%1s,%2s,%3s,%4s%5s",
                 blogId,
                 getTitle(),
                 getDescription(),
@@ -31,6 +35,7 @@ public class Blog {
                 blogNodeIds);
         return line;
     }
+
 
     public static Blog fromLine(String line) {
         String[] tokens = line.split(",");
