@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 public class BlogNode {
 
-    public BlogNode(Integer id, String head, String description, String date, String imageId) {
+    public BlogNode(Integer id, String userEmailID,String head, String description, String date, String imageId) {
         this.id = id;
+        this .userEmailID = userEmailID;
         this.head = head;
         this.description = description;
         this.answer = date;
@@ -14,14 +15,16 @@ public class BlogNode {
     }
 
     private Integer id;
+    private String userEmailID;
     private String description;
     private String answer;
     private String head;
     private String imageId;
 
     public String toLine() {
-        String line = String.format("%1s,%2s,%3s,%4s,%5s",
+        String line = String.format("%1s,%2s,%3s,%4s,%5s,%6s",
                 getId(),
+                getUserEmailID(),
                 getHead().trim(),
                 getDescription().trim(),
                 getAnswer().trim(),
@@ -36,7 +39,8 @@ public class BlogNode {
                 tokens[1].trim(),
                 tokens[2].trim(),
                 tokens[3].trim(),
-                tokens[4].trim()
+                tokens[4].trim(),
+                tokens[5].trim()
         );
         return blogNode;
     }
@@ -81,6 +85,15 @@ public class BlogNode {
     public void setImageId(String imageId) {
         this.imageId = imageId;
     }
+
+    public String getUserEmailID() {
+        return userEmailID;
+    }
+
+    public void setUserEmailID(String userEmailID) {
+        this.userEmailID = userEmailID;
+    }
+
 
 
 }

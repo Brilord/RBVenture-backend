@@ -6,6 +6,8 @@ import java.util.List;
 public class Blog {
 
     private Integer id;
+
+    private String userEmailID;
     private String title;
     private String description;
     private String dateAndTime;
@@ -13,8 +15,10 @@ public class Blog {
 
     private List<BlogNode> blogNodes;
 
-    public Blog(Integer id, String blogTitle, String description, String dateAndTime, List<Integer> blogNodeIds) {
+    public Blog(Integer id, String userEmailID,String blogTitle, String description, String dateAndTime, List<Integer> blogNodeIds) {
         this.id = id;
+
+        this.userEmailID = userEmailID;
         this.title = blogTitle;
         this.description = description;
         this.dateAndTime = dateAndTime;
@@ -25,10 +29,11 @@ public class Blog {
         String blogNodeIds = "";
         if (getBlogNodeIds() != null && !getBlogNodeIds().isEmpty()) {
             blogNodeIds = String.join(",", getBlogNodeIds().stream().map(String::valueOf).toList());
-            blogNodeIds = "," + blogNodeIds; // Add comma if there are blogNodeIds
+            blogNodeIds = "," + blogNodeIds;
         }
-        String line = String.format("%1s,%2s,%3s,%4s%5s",
+        String line = String.format("%1s,%2s,%3s,%4s,%5s%6s",
                 blogId,
+                userEmailID,
                 getTitle(),
                 getDescription(),
                 getDateAndTime(),
@@ -37,12 +42,13 @@ public class Blog {
     }
 
 
+
     public static Blog fromLine(String line) {
         String[] tokens = line.split(",");
-        List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 4, tokens.length))
+        List<Integer> ids = Arrays.stream(Arrays.copyOfRange(tokens, 5, tokens.length))
                 .map(x -> Integer.valueOf(x.trim())).toList();
         Blog blog = new Blog(Integer.valueOf(tokens[0]),
-                tokens[1], tokens[2], tokens[3],
+                tokens[1], tokens[2], tokens[3], tokens[4],
                 ids);
         return blog;
     }
@@ -93,6 +99,14 @@ public class Blog {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserEmailID() {
+        return userEmailID;
+    }
+
+    public void setUserEmailID(String userEmailID) {
+        this.userEmailID = userEmailID;
     }
 
 }

@@ -25,6 +25,8 @@ public class FileRepository {
     private static final String BLOG_DATABASE_NAME = "blog/blog.txt";
     private static final String BLOG_FOLDER_PATH = "blog/blognode";
 
+
+
     public FileRepository() {
         File imagesDirectory = new File(IMAGES_FOLDER_PATH);
         if (!imagesDirectory.exists()) {
@@ -147,8 +149,13 @@ public class FileRepository {
     }
 
     public boolean addImagePng(int id, MultipartFile file) throws IOException {
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getContentType());
+
         String fileExtension = ".png";
-        Path path = Paths.get(IMAGES_FOLDER_PATH + "/" + id + fileExtension);
+        Path path = Paths.get(IMAGES_FOLDER_PATH + "/"
+                 + id + fileExtension);
+        System.out.println("The file " + path + " was saved successfully.");
         file.transferTo(path);
         return true;
     }

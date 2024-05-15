@@ -2,6 +2,7 @@ package org.example.venture.controllers;
 
 import org.example.venture.model.User;
 import org.example.venture.repository.CustomerRepository;
+import org.example.venture.repository.FileRepository;
 import org.example.venture.service.TokenService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,8 @@ import java.io.IOException;
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     CustomerRepository customerRepository;
+
+    FileRepository fileRepository;
 
     private final TokenService tokenService;
 
@@ -65,7 +68,7 @@ public class AuthenticationController {
         }
     }
 
-    @DeleteMapping()
+    @DeleteMapping("{id}")
     public String deleteAccount(@RequestBody User customer) {
         try {
             System.out.println("hello there");

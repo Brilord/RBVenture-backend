@@ -68,6 +68,14 @@ public class BlogNodeController {
             throw new RuntimeException(e);
         }
     }
+    @PutMapping("/{id}/image")
+    public boolean updateImage(@PathVariable int id, @RequestParam MultipartFile file) {
+        try {
+            return fileRepository.updateImagePng(id, file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/{id}/image")
     public ResponseEntity<?> getImage(@PathVariable int id) {
