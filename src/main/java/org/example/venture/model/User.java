@@ -1,5 +1,7 @@
 package org.example.venture.model;
 
+import java.util.List;
+
 public class User {
 
     private String username;
@@ -7,15 +9,20 @@ public class User {
 
     private String email;
 
+    List<String> settingsConfig;
+
+
     public User() {
 
     }
 
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, List<String> settingsConfig) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.settingsConfig = settingsConfig;
+
     }
 
     public String getUsername() {
@@ -37,6 +44,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<String> getSettingsConfig() {
+        return settingsConfig;
+    }
+
+    public void setSettingsConfig(List<String> settingsConfig) {
+        this.settingsConfig = settingsConfig;
     }
 }
 
