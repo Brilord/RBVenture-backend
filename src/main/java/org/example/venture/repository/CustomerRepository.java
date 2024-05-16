@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 // why is this component not repossitory?
@@ -62,7 +61,7 @@ public class CustomerRepository {
         Path path = Paths.get(DATABASE_NAME);
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
         String passwordEncoded = bc.encode(customer.getPassword());
-        String data = customer.getUsername() + "," + passwordEncoded + "," + customer.getEmail() + "," + customer.getSettingsConfig();
+        String data = customer.getUsername() + "," + passwordEncoded + "," + customer.getEmail();
         appendToFile(path, data + NEW_LINE);
     }
 
@@ -74,7 +73,7 @@ public class CustomerRepository {
         for (String line : data) {
             if(!line.trim().isEmpty()) {
                 String[] tokens = line.split(",");
-                User c = new User(tokens[0], tokens[1], tokens[2], Collections.singletonList(tokens[3]));
+                User c = new User(tokens[0], tokens[1], tokens[2]);
                 result.add(c);
             }
         }
