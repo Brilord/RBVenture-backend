@@ -32,7 +32,7 @@ public class CustomerRepository {
     }
 
     private static final String NEW_LINE = System.lineSeparator();
-    private static final String DATABASE_NAME = "customers/customers.txt";
+    private static final String DATABASE_NAME = "users/users.txt";
     private static void appendToFile(Path path, String content)
             throws IOException {
         Files.write(path,

@@ -3,6 +3,7 @@ package org.example.venture.model;
 import java.util.Arrays;
 
 public class BlogNode {
+    // location to be implemented later
 
     public BlogNode(Integer id, String userEmailID,String head, String description, String date, String imageId) {
         this.id = id;

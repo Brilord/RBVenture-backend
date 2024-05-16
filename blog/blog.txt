@@ -1,5 +1,16 @@
+<<<<<<< Updated upstream
 1,brilord1000@gmail.com,The title you get from the input field,The description you get from the input field, null
 2,brilord1000@gmail.com,The title you get from the input field,The description you get from the input field, null
 3,brilord1000@gmail.com,The title you get from the input field,The description you get from the input field, null
 
 
+=======
+1, Example Blog Title,    Example Blog Description,    2024-05-09T12:00:00, 1,2,3
+2,Chicken,    Another Example Blog Description,    2024-05-09T15:30:00, 7,8,9
+3,Example Blog Title,    Example Blog Description,    2024-05-09T12:00:00, 1,2,3
+4,Another Example Blog Title,   Another Example Blog Description,   2024-05-09T15:30:00, 4,5,6
+5,Example Blog Title, Example Blog Description, 2024-05-09T12:00:00, 1,2,3
+6,Example Blog Title,Example Blog Description,2024-05-09T12:00:00
+7,brilord,hello there ,null     
+8,hello the re,brilord,null     
+>>>>>>> Stashed changes
