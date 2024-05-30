@@ -15,9 +15,8 @@ public class Blog {
 
     private List<BlogNode> blogNodes;
 
-    public Blog(Integer id, String userEmailID,String blogTitle, String description, String dateAndTime, List<Integer> blogNodeIds) {
+    public Blog(Integer id, String userEmailID, String blogTitle, String description, String dateAndTime, List<Integer> blogNodeIds) {
         this.id = id;
-
         this.userEmailID = userEmailID;
         this.title = blogTitle;
         this.description = description;

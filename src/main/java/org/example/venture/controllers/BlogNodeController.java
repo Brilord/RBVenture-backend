@@ -89,4 +89,18 @@ public class BlogNodeController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BlogNode> delete(@PathVariable int id) {
+        try {
+            BlogNode existingBlogNode = fileRepository.get(id);
+            if (existingBlogNode == null) {
+                return ResponseEntity.notFound().build();
+            }
+            fileRepository.delete(id);
+            return ResponseEntity.ok(existingBlogNode);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

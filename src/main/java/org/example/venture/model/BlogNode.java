@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class BlogNode {
     // location to be implemented later
 
-    public BlogNode(Integer id, String userEmailID,String head, String description, String date, String imageId) {
+    public BlogNode(Integer id, String userEmailID, String head, String description, String date, String imageId) {
         this.id = id;
         this .userEmailID = userEmailID;
         this.head = head;

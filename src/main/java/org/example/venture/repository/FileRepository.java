@@ -254,4 +254,9 @@ public class FileRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void delete(int id) {
+
+
+    }
 }

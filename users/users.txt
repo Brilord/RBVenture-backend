@@ -1,2 +1,3 @@
 brian,$2a$10$8jq14jLie4Irv.18QH5QdeQBixmYMPLmUCGOdmdz1p/nxW5YvZo0y,brilord1000@gmail.com
 hellothere,$2a$10$EUn.QD2Jj8QCmPxlTgKkr.VECnTvIvn625tMxq/BKIPDyUDODjjAm,brilord1000@gmail.com
+brilord,$2a$10$0cxDgto40osiRnETyYGhWuq0jv5nW4ZsjkV7Vu7TREKJWmR/fsn.i,brilord1000@gmail.com
